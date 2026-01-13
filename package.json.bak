@@ -1,0 +1,41 @@
+﻿# 完全重置
+echo "正在完全重置项目..."
+
+# 停止所有进程
+Get-Process -Name "node" -ErrorAction SilentlyContinue | 
+    Where-Object { $_.CommandLine -like "*vite*" } | 
+    Stop-Process -Force -ErrorAction SilentlyContinue
+
+Start-Sleep -Seconds 2
+
+# 备份重要文件
+if (Test-Path "src/App.tsx") { Copy-Item "src/App.tsx" "App.tsx.backup" -Force }
+if (Test-Path "src/main.tsx") { Copy-Item "src/main.tsx" "main.tsx.backup" -Force }
+
+# 删除node_modules和lock文件
+Remove-Item "node_modules" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "package-lock.json", "yarn.lock" -ErrorAction SilentlyContinue
+
+# 创建最简单的package.json
+@'
+{
+  "name": "metacoding-new",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "typescript": "^5.2.0",
+    "vite": "^5.0.0"
+  }
+}

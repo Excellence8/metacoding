@@ -1,0 +1,326 @@
+﻿// 项目导出工具
+export const exportProjectAsZip = async (projectData: any) => {
+  try {
+    alert("📦 正在生成项目 ZIP 文件...");
+    
+    // 动态导入 JSZip
+    const JSZip = await import("jszip");
+    const zip = new JSZip.default();
+    
+    // 1. 添加 package.json
+    zip.file("package.json", JSON.stringify({
+      name: projectData.projectId.replace(/\s+/g, "-").toLowerCase(),
+      version: "1.0.0",
+      type: "module",
+      scripts: {
+        dev: "vite",
+        build: "tsc && vite build",
+        preview: "vite preview",
+        lint: "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+      },
+      dependencies: {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.20.0"
+      },
+      devDependencies: {
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "@vitejs/plugin-react": "^4.0.0",
+        "eslint": "^8.45.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.0",
+        "typescript": "^5.0.2",
+        "vite": "^4.4.5"
+      }
+    }, null, 2));
+
+    // 2. 添加 src 目录
+    const src = zip.folder("src");
+    
+    // 3. 添加 App.tsx
+    const appContent = `import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+function Home() {
+  return (
+    <div style={{
+      minHeight: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "Arial, sans-serif",
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      color: "white"
+    }}>
+      <div style={{ textAlign: "center", padding: "40px" }}>
+        <h1>🎉 ${projectData.projectId}</h1>
+        <p>项目已成功创建！</p>
+        <p>模板: ${projectData.template}</p>
+        <p style={{ marginTop: "30px", opacity: 0.8 }}>
+          使用 MetaCoding 生成于 ${new Date().toLocaleDateString()}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;`;
+    
+    src.file("App.tsx", appContent);
+    
+    // 4. 添加 main.tsx
+    src.file("main.tsx", `import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);`);
+
+    // 5. 添加 index.css
+    src.file("index.css", `* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}`);
+
+    // 6. 添加 vite.config.ts
+    zip.file("vite.config.ts", `import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 5173,
+    host: true
+  }
+});`);
+
+    // 7. 添加 tsconfig.json
+    zip.file("tsconfig.json", `{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}`);
+
+    // 8. 添加 tsconfig.node.json
+    zip.file("tsconfig.node.json", `{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "include": ["vite.config.ts"]
+}`);
+
+    // 9. 添加 index.html
+    zip.file("index.html", `<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${projectData.projectId}</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>`);
+
+    // 10. 添加 README.md
+    zip.file("README.md", `# ${projectData.projectId}
+
+## 🚀 项目简介
+
+这是一个使用 **MetaCoding** 生成的 ${projectData.template} 项目。
+
+## 📦 快速开始
+
+### 安装依赖
+```bash
+npm install
+```
+
+### 启动开发服务器
+```bash
+npm run dev
+```
+
+### 构建生产版本
+```bash
+npm run build
+```
+
+### 预览构建版本
+```bash
+npm run preview
+```
+
+## 📁 项目结构
+
+```
+${projectData.projectId}/
+ src/
+    App.tsx
+    main.tsx
+    index.css
+ index.html
+ package.json
+ vite.config.ts
+ tsconfig.json
+ tsconfig.node.json
+ README.md
+```
+
+## 🛠️ 技术栈
+
+- React 18
+- TypeScript
+- Vite
+- React Router DOM
+
+## 📄 许可证
+
+MIT
+
+---
+
+> 由 [MetaCoding](https://github.com/metacoding) 生成于 ${new Date().toLocaleString()}`);
+
+    // 11. 添加 .gitignore
+    zip.file(".gitignore", `# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?`);
+
+    // 生成 ZIP 文件
+    const content = await zip.generateAsync({ 
+      type: "blob",
+      compression: "DEFLATE",
+      compressionOptions: {
+        level: 6
+      }
+    });
+    
+    // 创建下载链接
+    const url = URL.createObjectURL(content);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${projectData.projectId}.zip`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    alert("✅ 项目 ZIP 文件已生成并开始下载！");
+    return true;
+    
+  } catch (error) {
+    console.error("ZIP 导出失败:", error);
+    alert(`❌ ZIP 导出失败: ${error.message}\n请查看控制台获取详细信息。`);
+    return false;
+  }
+};
+
+// 备用导出功能：导出为文本
+export const exportProjectAsText = (projectData: any) => {
+  const content = `# ${projectData.projectId}
+
+## 项目信息
+- **项目ID**: ${projectData.projectId}
+- **模板**: ${projectData.template}
+- **生成时间**: ${new Date().toLocaleString()}
+
+## 生成的文件
+${projectData.files.map((file: string) => `- ${file}`).join("\\n")}
+
+## 启动命令
+```bash
+${projectData.commands.join("\\n")}
+```
+
+## 完整配置
+```json
+${JSON.stringify(projectData, null, 2)}
+```
+
+---
+
+> 由 MetaCoding 生成 | ${new Date().toLocaleString()}`;
+
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${projectData.projectId}.md`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  
+  alert("📄 项目已导出为 Markdown 文件！");
+};
+
+
+
+

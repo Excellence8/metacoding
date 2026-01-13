@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\StartMetaCoding]
+@="?? MetaCoding"
+"Icon"="powershell.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\StartMetaCoding\command]
+@="powershell.exe -ExecutionPolicy Bypass -File \"%~dp0launch.ps1\""

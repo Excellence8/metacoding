@@ -1,0 +1,38 @@
+﻿/* 基本页面样式 */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #666;
+}
+
+.page-content {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+  
+  .page-content {
+    padding: 1.5rem;
+  }
+}

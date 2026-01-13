@@ -1,0 +1,139 @@
+﻿.status-checker {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.status-checker h3 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.check-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.check-btn, .reset-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.check-btn {
+  background: #667eea;
+  color: white;
+  flex: 1;
+}
+
+.check-btn:hover:not(:disabled) {
+  background: #5a67d8;
+}
+
+.check-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.reset-btn {
+  background: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.reset-btn:hover {
+  background: #e5e7eb;
+}
+
+.check-results {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.results-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 3fr;
+  background: #f9fafb;
+  padding: 1rem;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.result-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 3fr;
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  align-items: center;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-name {
+  color: #4b5563;
+}
+
+.result-status.success {
+  color: #10b981;
+  font-weight: 500;
+}
+
+.result-status.error {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.result-message {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.summary-item span:first-child {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.summary-item span:last-child {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.summary-item .success {
+  color: #10b981;
+}
+
+.summary-item .error {
+  color: #ef4444;
+}
+
+.summary-item .rate {
+  color: #667eea;
+}

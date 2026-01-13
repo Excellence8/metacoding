@@ -1,0 +1,5 @@
+@echo off
+echo ????Vite?????...
+cd /d "D:\metacoding-new"
+npx vite
+pause

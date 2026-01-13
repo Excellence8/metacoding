@@ -1,0 +1,107 @@
+﻿{
+  "version": "1.0.0",
+  "project": {
+    "name": "metacoding-new",
+    "description": "A guided development project using metacoding workflow",
+    "type": "react-frontend",
+    "techStack": ["React", "TypeScript", "Vite", "Jest"],
+    "features": {
+      "testAutomation": true,
+      "releaseManagement": true,
+      "codeReview": true,
+      "documentation": true
+    },
+    "paths": {
+      "src": "src",
+      "components": "src/components",
+      "pages": "src/pages",
+      "services": "src/services",
+      "hooks": "src/hooks",
+      "utils": "src/utils",
+      "types": "src/types",
+      "tests": "__tests__",
+      "docs": "docs"
+    }
+  },
+  "workflow": {
+    "enabled": true,
+    "steps": 7,
+    "stepsConfig": {
+      "planning": {
+        "enabled": true,
+        "template": "planning.md"
+      },
+      "documentation": {
+        "enabled": true,
+        "template": "documentation.md"
+      },
+      "testing": {
+        "enabled": true,
+        "framework": "jest",
+        "coverage": 80
+      },
+      "implementation": {
+        "enabled": true,
+        "codeStyle": "typescript",
+        "componentType": "functional"
+      },
+      "review": {
+        "enabled": true,
+        "autoReview": true
+      },
+      "versioning": {
+        "enabled": true,
+        "commitConvention": "conventional"
+      },
+      "verification": {
+        "enabled": true,
+        "autoVerify": true
+      }
+    }
+  },
+  "ide": {
+    "primary": "vscode",
+    "aiAssistants": ["github-copilot"],
+    "extensions": [
+      "GitHub.copilot",
+      "GitHub.copilot-chat",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint"
+    ]
+  },
+  "codeGeneration": {
+    "templates": {
+      "component": "component.template.tsx",
+      "page": "page.template.tsx",
+      "service": "service.template.ts",
+      "hook": "hook.template.ts"
+    },
+    "defaults": {
+      "withStyles": true,
+      "withTests": true,
+      "withTypes": true
+    }
+  },
+  "testing": {
+    "framework": "jest",
+    "runner": "@testing-library/react",
+    "coverage": {
+      "enabled": true,
+      "threshold": 80
+    }
+  },
+  "style": {
+    "cssFramework": "css-modules",
+    "preprocessor": "none",
+    "designSystem": "custom",
+    "theme": {
+      "colors": {
+        "primary": "#667eea",
+        "secondary": "#764ba2",
+        "success": "#10b981",
+        "warning": "#f59e0b",
+        "error": "#ef4444"
+      }
+    }
+  }
+}

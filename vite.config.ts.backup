@@ -1,0 +1,62 @@
+﻿import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import path from "path"
+
+export default defineConfig({
+  plugins: [
+    react({
+      jsxImportSource: "react",
+      babel: {
+        plugins: [
+          ["@babel/plugin-transform-react-jsx", { runtime: "automatic" }]
+        ]
+      }
+    })
+  ],
+  
+  server: {
+    port: 8888,
+    host: "127.0.0.1",
+    strictPort: true,
+    https: false,
+    cors: true,
+    open: false
+  },
+  
+  // 修复ES模块问题
+  resolve: {
+    alias: {
+      react: path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+      "react/jsx-runtime": path.resolve(__dirname, "node_modules/react/jsx-runtime.js")
+    },
+    dedupe: ["react", "react-dom"]
+  },
+  
+  // 修复优化配置
+  optimizeDeps: {
+    include: ["react", "react-dom", "react/jsx-runtime"],
+    exclude: [],
+    noDiscovery: true  // 修复实验性配置警告
+  },
+  
+  // ES模块配置
+  esbuild: {
+    jsx: "automatic",
+    jsxImportSource: "react"
+  },
+  
+  build: {
+    rollupOptions: {
+      external: [],  // 确保不排除react
+      output: {
+        format: "es",
+        exports: "named"
+      }
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true,
+      requireReturnsDefault: "auto"
+    }
+  }
+})
