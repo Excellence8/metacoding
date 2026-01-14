@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaCoding - 智能代码生成平台</title>
+    <meta name="description" content="MetaCoding - 基于React的智能代码生成平台，一键生成完整项目结构，支持ZIP/JSON导出">
+    <meta name="keywords" content="代码生成,React,TypeScript,项目模板,前端工具,开发者工具">
+    <meta name="author" content="MetaCoding Team">
+    <meta property="og:title" content="MetaCoding - 智能代码生成平台">
+    <meta property="og:description" content="一键生成完整的React + TypeScript项目结构">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/logo.png">
+    <link rel="icon" type="image/svg+xml" href="/metacoding/vite.svg">
+    
+    <!-- 主题颜色 -->
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MetaCoding">
+    
+    <!-- Android Chrome -->
+    <meta name="mobile-web-app-capable" content="yes">
+  <script type="module" crossorigin src="/metacoding/assets/index-455573e5.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    
+    <!-- 加载动画 -->
+    <div id="loading" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: white;
+        font-family: Arial, sans-serif;
+        z-index: 9999;
+    ">
+        <div style="
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        ">🎯</div>
+        <h1 style="margin: 0 0 10px 0;">MetaCoding</h1>
+        <p>智能代码生成平台</p>
+        <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.8;">正在加载...</p>
+    </div>
+    
+    <script>
+        // 隐藏加载动画
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loading').style.display = 'none';
+                }, 300);
+            }, 500);
+        });
+        
+        // 如果加载超时
+        setTimeout(function() {
+            document.getElementById('loading').style.display = 'none';
+        }, 5000);
+    </script>
+    
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        #root {
+            min-height: 100vh;
+        }
+    </style>
+</body>
+</html>
