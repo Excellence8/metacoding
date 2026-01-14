@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MetaCoding - 智能代码生成平台</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO 优化 -->
+  <meta name="description" content="MetaCoding - 基于React的智能代码生成平台，一键生成完整项目结构，支持ZIP/JSON导出">
+  <meta name="keywords" content="代码生成,React,TypeScript,项目模板,前端工具,开发者工具">
+  <meta name="author" content="户名/metacoding.git" -ForegroundColor White">
+  <meta property="og:title" content="MetaCoding - 智能代码生成平台">
+  <meta property="og:description" content="一键生成完整的React + TypeScript项目结构">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://完成！" -ForegroundColor Green.github.io/metacoding/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MetaCoding">
+  <meta name="twitter:description" content="智能代码生成平台">
+  
+  <!-- 网站图标 -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  <!-- PWA 清单 -->
+  <link rel="manifest" href="/manifest.json">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

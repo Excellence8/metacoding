@@ -1,7 +1,6 @@
 ﻿{
   "name": "metacoding",
   "version": "1.0.0",
-  "private": true,
   "description": "智能代码生成平台",
   "homepage": "https://Excellence8.github.io/metacoding",
   "scripts": {
